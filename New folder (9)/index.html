@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA | The Ultimate 2026 Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030303;
+            --accent: #00ffcc;
+            --secondary: #7000ff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+            --text: #ffffff;
+            --text-dim: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- 1. PREMIUM NAVIGATION --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 5%; background: rgba(3, 3, 3, 0.8);
+            backdrop-filter: blur(30px); position: fixed; width: 100%; top: 0; z-index: 5000;
+            border-bottom: 1px solid var(--border);
+        }
+        .logo { font-size: 1.8rem; font-weight: 800; letter-spacing: -2px; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
+
+        .cart-btn {
+            background: var(--accent); color: #000; padding: 10px 25px;
+            border-radius: 50px; font-weight: 800; cursor: pointer; border: none;
+        }
+
+        /* --- 2. THE "GOOD" LANDING PAGE (HERO) --- */
+        .hero {
+            height: 100vh; display: flex; align-items: center; padding: 0 5%;
+            background: radial-gradient(circle at 80% 20%, rgba(0, 255, 204, 0.15), transparent 40%);
+        }
+        .hero-content { max-width: 800px; }
+        .hero h1 { font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 800; line-height: 0.9; margin-bottom: 25px; }
+        .hero p { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 40px; max-width: 600px; }
+        
+        .cta-group { display: flex; gap: 20px; }
+        .btn-primary { background: var(--accent); color: #000; padding: 20px 45px; border-radius: 15px; text-decoration: none; font-weight: 800; transition: 0.4s; }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 255, 204, 0.3); }
+
+        /* --- 3. BENTO FEATURE GRID --- */
+        .bento-section { padding: 100px 5%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .bento-card { background: var(--glass); border: 1px solid var(--border); border-radius: 30px; padding: 40px; transition: 0.4s; }
+        .bento-card:hover { border-color: var(--accent); background: rgba(255,255,255,0.05); }
+        .large { grid-column: span 2; grid-row: span 2; }
+        .wide { grid-column: span 2; }
+
+        /* --- 4. THE SHOPPING ENGINE --- */
+        .shop-header { padding: 80px 5% 20px 5%; display: flex; justify-content: space-between; align-items: flex-end; }
+        .filter-bar { display: flex; gap: 10px; padding: 0 5% 40px 5%; overflow-x: auto; scrollbar-width: none; }
+        .chip { padding: 12px 25px; background: var(--glass); border: 1px solid var(--border); border-radius: 100px; cursor: pointer; transition: 0.3s; font-weight: 600; white-space: nowrap; }
+        .chip.active { background: var(--accent); color: #000; border-color: var(--accent); }
+
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; padding: 0 5% 100px 5%; }
+        .card { background: var(--glass); border: 1px solid var(--border); border-radius: 30px; padding: 25px; transition: 0.4s; }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .card-img { width: 100%; height: 220px; background: #0a0a0a; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 4.5rem; margin-bottom: 20px; }
+        
+        /* --- 5. FUNCTIONAL SLIDE-OUT CART --- */
+        .cart-panel {
+            position: fixed; right: -450px; top: 0; width: 400px; height: 100vh;
+            background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(50px); z-index: 6000;
+            transition: 0.6s cubic-bezier(0.85, 0, 0.15, 1); padding: 40px; border-left: 1px solid var(--border);
+        }
+        .cart-panel.open { right: 0; }
+        .cart-items-list { height: 60vh; overflow-y: auto; margin: 30px 0; border-top: 1px solid var(--border); }
+        .cart-item { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--border); }
+
+        footer { padding: 80px 5%; background: #000; border-top: 1px solid var(--border); display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; }
+
+        @media (max-width: 900px) {
+            .bento-section { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 3.5rem; }
+            .cart-panel { width: 100%; right: -100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">AURA<span style="color:var(--accent)">.</span></div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#collection">Collection</a>
+            <a href="mailto:ahsanabsullah444@gmail.com">Contact</a>
+        </div>
+        <button class="cart-btn" onclick="toggleCart()">CART (<span id="cart-count">0</span>)</button>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>ELEVATE<br>YOUR <span style="color:var(--accent)">OS.</span></h1>
+            <p>The world's first hyper-curated collection of neural-tech and cybernetic lifestyle gear. Engineered for the 2026 pioneer.</p>
+            <div class="cta-group">
+                <a href="#collection" class="btn-primary">Shop Collection</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="bento-section">
+        <div class="bento-card large">
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Neural Connectivity</h2>
+            <p style="color:var(--text-dim)">Our Series-9 Links provide seamless integration with the Aether Network.</p>
+        </div>
+        <div class="bento-card">
+            <h3>Fast Global Shipping</h3>
+            <p>From Karachi to the world.</p>
+        </div>
+        <div class="bento-card">
+            <h3>24/7 Support</h3>
+            <p>Direct line to engineers.</p>
+        </div>
+        <div class="bento-card wide">
+            <h3>The 2026 Vision</h3>
+            <p>Design meets raw performance.</p>
+        </div>
+    </div>
+
+    <div class="shop-header" id="collection">
+        <h2>The Full Collection</h2>
+        <div style="color:var(--accent); font-weight:800; cursor:pointer" onclick="toggleCurrency()">Toggle PKR / USD</div>
+    </div>
+
+    <div class="filter-bar">
+        <div class="chip active" onclick="setFilter('All', this)">All Products</div>
+        <div class="chip" onclick="setFilter('Tech', this)">Neural Hardware</div>
+        <div class="chip" onclick="setFilter('Wear', this)">Cyber Wear</div>
+        <div class="chip" onclick="setFilter('Home', this)">Smart Spaces</div>
+        <div class="chip" onclick="setFilter('Office', this)">Work OS</div>
+    </div>
+
+    <div class="product-grid" id="main-grid"></div>
+
+    <div class="cart-panel" id="cart-panel">
+        <div style="display:flex; justify-content:space-between">
+            <h2>Your Bag</h2>
+            <button onclick="toggleCart()" style="background:none; border:none; color:white; cursor:pointer;">CLOSE</button>
+        </div>
+        <div class="cart-items-list" id="cart-items"></div>
+        <div>
+            <div style="display:flex; justify-content:space-between; font-size:1.8rem; font-weight:800;">
+                <span>Total</span>
+                <span id="total-val">$0</span>
+            </div>
+            <button class="btn-primary" style="width:100%; margin-top:20px; border:none; cursor:pointer;" onclick="checkout()">PLACE ORDER</button>
+        </div>
+    </div>
+
+    <footer>
+        <div>
+            <span class="logo">AURA.</span>
+            <p style="margin:20px 0; color:var(--text-dim)">Curated by Ahsan Abdullah. Redefining the digital frontier.</p>
+        </div>
+        <div>
+            <h4 style="margin-bottom:20px">Links</h4>
+            <p>Order Tracking</p><p>Privacy</p><p>Terms</p>
+        </div>
+        <div>
+            <h4 style="margin-bottom:20px">Direct Contact</h4>
+            <p>📞 03222765089</p>
+            <p>✉️ ahsanabsullah444@gmail.com</p>
+        </div>
+    </footer>
+
+    <script>
+        const products = [
+            { id: 1, name: "Neural Link 9", price: 1500, icon: "🧠", cat: "Tech" },
+            { id: 2, name: "Carbon Suit", price: 2800, icon: "🧥", cat: "Wear" },
+            { id: 3, name: "Ion Runners", price: 450, icon: "👟", cat: "Wear" },
+            { id: 4, name: "Holo Lens V2", price: 890, icon: "👓", cat: "Tech" },
+            { id: 5, name: "Void Pods", price: 300, icon: "🎧", cat: "Tech" },
+            { id: 6, name: "Titanium Desk", price: 1900, icon: "🏢", cat: "Office" },
+            { id: 7, name: "Solar Pack", price: 220, icon: "🎒", cat: "Wear" },
+            { id: 8, name: "Bio-Home OS", price: 3500, icon: "🏠", cat: "Home" },
+            { id: 9, name: "Cyber Ring", price: 180, icon: "💍", cat: "Tech" },
+            { id: 10, name: "Nano Flask", price: 75, icon: "🧪", cat: "Home" },
+            { id: 11, name: "Aura Lamp", price: 150, icon: "💡", cat: "Home" },
+            { id: 12, name: "Smart Soil", price: 60, icon: "🪴", cat: "Home" },
+            { id: 13, name: "Flux Phone", price: 1300, icon: "📱", cat: "Tech" },
+            { id: 14, name: "Air Purifier", price: 400, icon: "🌬️", cat: "Home" },
+            { id: 15, name: "Work Station", price: 2500, icon: "🖥️", cat: "Office" },
+            { id: 16, name: "Mechanical Keys", price: 240, icon: "⌨️", cat: "Office" },
+            { id: 17, name: "Ergo Chair", price: 850, icon: "💺", cat: "Office" },
+            { id: 18, name: "Privacy Screen", price: 110, icon: "🖼️", cat: "Office" },
+            { id: 19, name: "Drone Cam", price: 1100, icon: "🚁", cat: "Tech" },
+            { id: 20, name: "Solid Drive", price: 130, icon: "💾", cat: "Tech" },
+            { id: 21, name: "Coffee Lab", price: 320, icon: "☕", cat: "Home" },
+            { id: 22, name: "Yoga Flux Mat", price: 95, icon: "🧘", cat: "Home" },
+            { id: 23, name: "Sleep Pod", price: 4200, icon: "🛌", cat: "Home" },
+            { id: 24, name: "Cipher Wallet", price: 85, icon: "💼", cat: "Wear" },
+            { id: 25, name: "Thermal Glo", price: 140, icon: "🧤", cat: "Wear" },
+            { id: 26, name: "Rain Shield", price: 115, icon: "☂️", cat: "Wear" },
+            { id: 27, name: "Vector Watch", price: 500, icon: "⌚", cat: "Tech" },
+            { id: 28, name: "Ultra Router", price: 380, icon: "📡", cat: "Tech" },
+            { id: 29, name: "Glow Frame", price: 200, icon: "🖼️", cat: "Home" },
+            { id: 30, name: "Core Battery", price: 450, icon: "🔋", cat: "Tech" }
+        ];
+
+        let cart = [];
+        let filter = 'All';
+        let currency = 'USD';
+
+        function render() {
+            const grid = document.getElementById('main-grid');
+            grid.innerHTML = '';
+            const filtered = products.filter(p => filter === 'All' || p.cat === filter);
+
+            filtered.forEach(p => {
+                const price = currency === 'USD' ? `$${p.price}` : `₨${(p.price * 280).toLocaleString()}`;
+                grid.innerHTML += `
+                    <div class="card">
+                        <div class="card-img">${p.icon}</div>
+                        <span style="color:var(--accent); font-size:0.7rem; font-weight:800">${p.cat}</span>
+                        <h3>${p.name}</h3>
+                        <p style="font-size:1.5rem; font-weight:800; margin:10px 0">${price}</p>
+                        <button class="btn-primary" style="width:100%; padding:12px; font-size:0.8rem; border:none; cursor:pointer;" onclick="addToCart(${p.id})">ADD TO BAG</button>
+                    </div>
+                `;
+            });
+        }
+
+        function addToCart(id) {
+            const p = products.find(x => x.id === id);
+            cart.push(p);
+            updateCart();
+            toggleCart(true);
+        }
+
+        function updateCart() {
+            document.getElementById('cart-count').innerText = cart.length;
+            const list = document.getElementById('cart-items');
+            list.innerHTML = '';
+            let total = 0;
+            cart.forEach((item, i) => {
+                total += item.price;
+                list.innerHTML += `
+                    <div class="cart-item">
+                        <span>${item.name}</span>
+                        <span>$${item.price} <button onclick="removeFromCart(${i})" style="color:red; background:none; border:none; cursor:pointer">✕</button></span>
+                    </div>
+                `;
+            });
+            document.getElementById('total-val').innerText = currency === 'USD' ? `$${total}` : `₨${(total * 280).toLocaleString()}`;
+        }
+
+        function removeFromCart(i) {
+            cart.splice(i, 1);
+            updateCart();
+        }
+
+        function toggleCart(forceOpen = false) {
+            const panel = document.getElementById('cart-panel');
+            if (forceOpen) panel.classList.add('open');
+            else panel.classList.toggle('open');
+        }
+
+        function setFilter(cat, el) {
+            filter = cat;
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            render();
+        }
+
+        function toggleCurrency() {
+            currency = currency === 'USD' ? 'PKR' : 'USD';
+            render();
+            updateCart();
+        }
+
+        function checkout() {
+            if (cart.length === 0) return alert("Bag is empty!");
+            const items = cart.map(i => i.name).join(", ");
+            const total = document.getElementById('total-val').innerText;
+            const msg = `🚀 NEW ORDER\n\nItems: ${items}\nTotal: ${total}\nContact: 03222765089\nEmail: ahsanabsullah444@gmail.com`;
+            window.open(`https://wa.me/923222765089?text=${encodeURIComponent(msg)}`);
+        }
+
+        render();
+    </script>
+</body>
+</html>
